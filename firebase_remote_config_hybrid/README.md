@@ -1,6 +1,6 @@
 # FirebaseRemoteConfig
 
-[![pub package](https://img.shields.io/pub/v/firebase_core.svg)](https://pub.dev/packages/firebase_remote_config_hybrid)
+[![pub package](https://img.shields.io/pub/v/firebase_remote_config_hybrid.svg)](https://pub.dev/packages/firebase_remote_config_hybrid)
 
 A hybrid firebase remote config plugin (Android, iOS and web),
 This plugin is based on [`firebase_remote_config`](https://pub.dev/packages/firebase_remote_config) for mobile and [`firebase`](https://pub.dev/packages/firebase) for web.
