@@ -9,7 +9,7 @@ same interface.
 # Usage
 
 To implement a new platform-specific implementation of `firebase_remote_config_hybrid`, extend
-[`FlutterPluginTemplatePlatformInterface`](https://github.com/JohnMusleh/firebase_remote_config_hybrid/tree/master/firebase_remote_config_hybrid_platform_interface) with an implementation that performs the
+[`FirebaseRemoteConfigPlatformInterface`](https://github.com/JohnMusleh/firebase_remote_config_hybrid/tree/master/firebase_remote_config_hybrid_platform_interface) with an implementation that performs the
 platform-specific behavior, and when you register your plugin, set the default
-`FlutterPluginTemplatePlatformInterface` by calling
-`FlutterPluginTemplatePlatformInterface.instance = MyFlutterPluginTemplate()`.
+`FirebaseRemoteConfigPlatformInterface` by calling
+`FirebaseRemoteConfigPlatformInterface.instance = MyFirebaseRemoteConfig()`.
