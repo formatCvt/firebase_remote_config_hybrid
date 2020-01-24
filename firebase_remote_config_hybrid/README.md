@@ -1,4 +1,4 @@
-# FlutterPluginTemplate
+# FirebaseRemoteConfig
 
 [![pub package](https://img.shields.io/pub/v/firebase_core.svg)](https://pub.dartlang.org/packages/firebase_core)
 
@@ -15,4 +15,4 @@ In addition to the `firebase_remote_config_hybrid` dependency, you'll need to mo
 
 ## Getting Started
 
-See the `example` directory for a complete sample app using FlutterPluginTemplate.
+See the `example` directory for a complete sample app using FirebaseRemoteConfig.
