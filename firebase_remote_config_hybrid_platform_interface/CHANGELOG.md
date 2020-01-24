@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 
 
-* TODO: Describe initial release.
+* Initialized plugin based on firebase_remote_config and firebase_dart implementations
