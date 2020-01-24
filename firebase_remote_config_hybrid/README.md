@@ -1,8 +1,9 @@
 # FirebaseRemoteConfig
 
-[![pub package](https://img.shields.io/pub/v/firebase_core.svg)](https://pub.dartlang.org/packages/firebase_core)
+[![pub package](https://img.shields.io/pub/v/firebase_core.svg)](https://pub.dev/packages/firebase_remote_config_hybrid)
 
-A Flutter plugin template.
+A hybrid firebase remote config plugin (Android, iOS and web),
+This plugin is based on [`firebase_remote_config`](https://pub.dev/packages/firebase_remote_config) for mobile and [`firebase`](https://pub.dev/packages/firebase) for web.
 
 ## Usage
 
