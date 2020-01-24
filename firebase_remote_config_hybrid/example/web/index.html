@@ -5,6 +5,32 @@
   <title>example</title>
 </head>
 <body>
-  <script src="main.dart.js" type="application/javascript"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-remote-config.js"></script>
+
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDp8lpC8dJXl_LrnrQCGRGf35_W82XYblk",
+        authDomain: "fir-storage-example-bdbdf.firebaseapp.com",
+        databaseURL: "https://fir-storage-example-bdbdf.firebaseio.com",
+        projectId: "fir-storage-example-bdbdf",
+        storageBucket: "fir-storage-example-bdbdf.appspot.com",
+        messagingSenderId: "538342301537",
+        appId: "1:538342301537:web:647c6da6ce5c10e5e96f20",
+        measurementId: "G-P336DQBLL8"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+    <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

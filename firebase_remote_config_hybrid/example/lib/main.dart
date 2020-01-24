@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:firebase_remote_config_hybrid/firebase_remote_config_hybrid.dart';
+import 'package:firebase_remote_config_hybrid/firebase_remote_config_hybrid.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
     setState(() {
       _counter++;
     });
@@ -37,7 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // FirebaseRemoteConfig template = FirebaseRemoteConfig();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -46,9 +44,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text(template.hello() ?? 'null'),
-            Text(
-              'You have pushed the button this many times:',
+            FutureBuilder(
+              future: _getWelcomeMessage(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return snapshot.data == null
+                    ? CircularProgressIndicator()
+                    : Text(snapshot.data);
+              },
             ),
             Text(
               '$_counter',
@@ -61,7 +63,17 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
+  }
+
+  Future<String> _getWelcomeMessage() async {
+    FirebaseRemoteConfig remoteConfig = await FirebaseRemoteConfig.instance;
+    if (remoteConfig != null) {
+      await remoteConfig.fetch();
+      await remoteConfig.activateFetched();
+      return remoteConfig.getString('welcome');
+    }
+    return null;
   }
 }

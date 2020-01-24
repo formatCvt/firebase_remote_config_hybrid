@@ -9,7 +9,7 @@ flutter:
   plugin:
     platforms:
       web:
-        pluginClass: FlutterPluginTemplateWeb
+        pluginClass: FirebaseRemoteConfigWeb
         fileName: firebase_remote_config_hybrid_web.dart
 
 dependencies:
@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   firebase_remote_config_hybrid_platform_interface:
     path: ../firebase_remote_config_hybrid_platform_interface
+  firebase: ^7.2.0
 
 dev_dependencies:
   flutter_web_plugins:

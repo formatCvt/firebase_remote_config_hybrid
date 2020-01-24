@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "538342301537",
+    "firebase_url": "https://fir-storage-example-bdbdf.firebaseio.com",
+    "project_id": "fir-storage-example-bdbdf",
+    "storage_bucket": "fir-storage-example-bdbdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538342301537:android:c697323624c211cde96f20",
+        "android_client_info": {
+          "package_name": "com.hybridplugins.remoteconfig.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538342301537-pt0160571h06bf7pgemlsmaeq938kr54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmvDP3PrCfwkE6s8mFhxPX7yZ30H4qnfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538342301537-pt0160571h06bf7pgemlsmaeq938kr54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
