@@ -10,7 +10,7 @@ class FirebaseRemoteConfig {
           await FirebaseRemoteConfigPlatformInterface.getinstance());
 
   RemoteConfigValue getValue(String key) {
-    return _platformInstance?.getValue(key);
+    return RemoteConfigValue._fromPlatform(_platformInstance?.getValue(key));
   }
 
   int getInt(String key) {
@@ -26,14 +26,25 @@ class FirebaseRemoteConfig {
   }
 
   Map<String, RemoteConfigValue> getAll() {
-    return _platformInstance?.getAll();
+    Map<String, PlatformRemoteConfigValue> platformMap =
+        _platformInstance?.getAll();
+    Map<String, RemoteConfigValue> result = {};
+    if (platformMap == null) return null;
+    for (String key in platformMap.keys) {
+      result[key] = RemoteConfigValue._fromPlatform(platformMap[key]);
+    }
+    return result;
   }
 
-  Future<void> fetch() async {
-    await _platformInstance?.fetch();
+  Future<void> fetch({Duration expiration: const Duration(hours: 12)}) async {
+    await _platformInstance?.fetch(expiration: expiration);
   }
 
   Future<bool> activateFetched() async {
     return await _platformInstance?.activateFetched();
   }
+
+  LastFetchStatus get lastFetchStatus => _platformInstance?.lastFetchStatus;
+
+  DateTime get lastFetchTime => _platformInstance?.lastFetchTime;
 }

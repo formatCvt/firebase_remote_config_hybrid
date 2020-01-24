@@ -22,11 +22,15 @@ abstract class FirebaseRemoteConfigPlatformInterface {
 
   String getString(String key);
 
-  RemoteConfigValue getValue(String key);
+  PlatformRemoteConfigValue getValue(String key);
 
-  Map<String, RemoteConfigValue> getAll();
+  Map<String, PlatformRemoteConfigValue> getAll();
 
   Future<bool> activateFetched();
 
-  Future<void> fetch();
+  Future<void> fetch({Duration expiration: const Duration(hours: 12)});
+
+  DateTime get lastFetchTime;
+
+  LastFetchStatus get lastFetchStatus;
 }

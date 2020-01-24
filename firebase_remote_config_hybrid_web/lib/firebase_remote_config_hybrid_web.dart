@@ -15,10 +15,10 @@ class FirebaseRemoteConfigWeb extends FirebaseRemoteConfigPlatformInterface {
   }
 
   @override
-  Map<String, RemoteConfigValue> getAll() {
+  Map<String, PlatformRemoteConfigValue> getAll() {
     Map<String, core.RemoteConfigValue> coreResult = _instance?.getAll();
     if (coreResult == null) return null;
-    Map<String, RemoteConfigValue> pluginResult = {};
+    Map<String, PlatformRemoteConfigValue> pluginResult = {};
     for (String key in coreResult.keys) {
       pluginResult[key] = _coreConfigValueToPlugin(coreResult[key]);
     }
@@ -46,7 +46,7 @@ class FirebaseRemoteConfigWeb extends FirebaseRemoteConfigPlatformInterface {
   }
 
   @override
-  RemoteConfigValue getValue(String key) {
+  PlatformRemoteConfigValue getValue(String key) {
     return _coreConfigValueToPlugin(_instance?.getValue(key));
   }
 
@@ -56,11 +56,56 @@ class FirebaseRemoteConfigWeb extends FirebaseRemoteConfigPlatformInterface {
   }
 
   @override
-  Future<void> fetch() async {
+  Future<void> fetch({Duration expiration: const Duration(hours: 12)}) async {
+    _instance?.settings?.minimumFetchInterval = expiration;
     await _instance?.fetch();
   }
 
-  RemoteConfigValue _coreConfigValueToPlugin(core.RemoteConfigValue coreValue) {
-    return coreValue == null ? null : RemoteConfigValue();
+  @override
+  DateTime get lastFetchTime => _instance?.fetchTime;
+
+  @override
+  LastFetchStatus get lastFetchStatus =>
+      _statusFromCore(_instance?.lastFetchStatus);
+
+  PlatformRemoteConfigValue _coreConfigValueToPlugin(
+      core.RemoteConfigValue coreValue) {
+    return coreValue == null
+        ? null
+        : PlatformRemoteConfigValue(
+            asBool: coreValue.asBoolean,
+            asDouble: () => coreValue.asNumber().toDouble(),
+            asInt: () => coreValue.asNumber().toInt(),
+            asString: coreValue.asString,
+            getSource: () => _valueSourceFromCore(coreValue.getSource()),
+          );
+  }
+
+  LastFetchStatus _statusFromCore(core.RemoteConfigFetchStatus status) {
+    switch (status) {
+      case core.RemoteConfigFetchStatus.failure:
+        return LastFetchStatus.failure;
+      case core.RemoteConfigFetchStatus.notFetchedYet:
+        return LastFetchStatus.noFetchYet;
+      case core.RemoteConfigFetchStatus.success:
+        return LastFetchStatus.success;
+      case core.RemoteConfigFetchStatus.throttle:
+        return LastFetchStatus.throttled;
+      default:
+        return null;
+    }
+  }
+
+  ValueSource _valueSourceFromCore(core.RemoteConfigValueSource source) {
+    switch (source) {
+      case core.RemoteConfigValueSource.defaults:
+        return ValueSource.valueDefault;
+      case core.RemoteConfigValueSource.remote:
+        return ValueSource.valueRemote;
+      case core.RemoteConfigValueSource.static:
+        return ValueSource.valueStatic;
+      default:
+        return null;
+    }
   }
 }

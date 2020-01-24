@@ -6,10 +6,10 @@ class FirebaseRemoteConfigMobile extends FirebaseRemoteConfigPlatformInterface {
   core.RemoteConfig _instance;
 
   @override
-  Map<String, RemoteConfigValue> getAll() {
+  Map<String, PlatformRemoteConfigValue> getAll() {
     Map<String, core.RemoteConfigValue> coreResult = _instance?.getAll();
     if (coreResult == null) return null;
-    Map<String, RemoteConfigValue> pluginResult = {};
+    Map<String, PlatformRemoteConfigValue> pluginResult = {};
     for (String key in coreResult.keys) {
       pluginResult[key] = _coreConfigValueToPlugin(coreResult[key]);
     }
@@ -37,7 +37,7 @@ class FirebaseRemoteConfigMobile extends FirebaseRemoteConfigPlatformInterface {
   }
 
   @override
-  RemoteConfigValue getValue(String key) {
+  PlatformRemoteConfigValue getValue(String key) {
     return _coreConfigValueToPlugin(_instance?.getValue(key));
   }
 
@@ -47,11 +47,55 @@ class FirebaseRemoteConfigMobile extends FirebaseRemoteConfigPlatformInterface {
   }
 
   @override
-  Future<void> fetch() async {
-    await _instance?.fetch(expiration: Duration.zero);
+  Future<void> fetch({Duration expiration: const Duration(hours: 12)}) async {
+    await _instance?.fetch(expiration: expiration);
   }
 
-  RemoteConfigValue _coreConfigValueToPlugin(core.RemoteConfigValue coreValue) {
-    return coreValue == null ? null : RemoteConfigValue();
+  @override
+  DateTime get lastFetchTime => _instance?.lastFetchTime;
+
+  @override
+  LastFetchStatus get lastFetchStatus =>
+      _statusFromCore(_instance?.lastFetchStatus);
+
+  PlatformRemoteConfigValue _coreConfigValueToPlugin(
+      core.RemoteConfigValue coreValue) {
+    return coreValue == null
+        ? null
+        : PlatformRemoteConfigValue(
+            asBool: coreValue.asBool,
+            asDouble: coreValue.asDouble,
+            asInt: coreValue.asInt,
+            asString: coreValue.asString,
+            getSource: () => _valueSourceFromCore(coreValue.source),
+          );
+  }
+
+  LastFetchStatus _statusFromCore(core.LastFetchStatus status) {
+    switch (status) {
+      case core.LastFetchStatus.failure:
+        return LastFetchStatus.failure;
+      case core.LastFetchStatus.noFetchYet:
+        return LastFetchStatus.noFetchYet;
+      case core.LastFetchStatus.success:
+        return LastFetchStatus.success;
+      case core.LastFetchStatus.throttled:
+        return LastFetchStatus.throttled;
+      default:
+        return null;
+    }
+  }
+
+  ValueSource _valueSourceFromCore(core.ValueSource source) {
+    switch (source) {
+      case core.ValueSource.valueDefault:
+        return ValueSource.valueDefault;
+      case core.ValueSource.valueRemote:
+        return ValueSource.valueRemote;
+      case core.ValueSource.valueStatic:
+        return ValueSource.valueStatic;
+      default:
+        return null;
+    }
   }
 }
