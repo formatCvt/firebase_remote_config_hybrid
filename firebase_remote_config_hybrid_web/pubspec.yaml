@@ -15,16 +15,15 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_remote_config_hybrid_platform_interface:
-    path: ../firebase_remote_config_hybrid_platform_interface
+  flutter_web_plugins:
+    sdk: flutter
+  firebase_remote_config_hybrid_platform_interface: ^0.0.1
   firebase: ^7.2.0
 
 dev_dependencies:
-  flutter_web_plugins:
-    sdk: flutter
   meta: ^1.1.7
   js: ^0.6.1
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
-  flutter: ">=1.9.1+hotfix.5 <2.0.0"
+  flutter: ">=1.10.1+hotfix.5 <2.0.0"
