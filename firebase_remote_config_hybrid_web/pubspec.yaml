@@ -17,7 +17,10 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  firebase_remote_config_hybrid_platform_interface: ^0.0.1
+  firebase_remote_config_hybrid_platform_interface:
+    git:
+      url: https://github.com/formatCvt/firebase_remote_config_hybrid.git
+      path: firebase_remote_config_hybrid_platform_interface
   firebase: ^7.2.0
 
 dev_dependencies:
